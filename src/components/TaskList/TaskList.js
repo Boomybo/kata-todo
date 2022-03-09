@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import Task from '../Task/Task';
-// import "./TaskList.css"
+import './TaskList.css';
 
 function TaskList({ data, onDeleted, onToggleDone, onToggleEdit, editTask }) {
   const elements = data.map((val) => {

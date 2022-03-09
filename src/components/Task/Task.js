@@ -36,7 +36,14 @@ export default class Task extends React.Component {
       classNames += 'editing';
       inp = (
         <form onSubmit={this.onSubmit}>
-          <input type="text" className="edit" value={this.state.label} onChange={this.onLabelChange} />
+          <input
+            type="text"
+            className="edit"
+            value={this.state.label}
+            onChange={this.onLabelChange}
+            onBlur={this.onSubmit}
+            autoFocus
+          />
         </form>
       );
     }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import TasksFilter from '../TasksFilter/TasksFilter';
 
-// import "./Footer.css"
+import './Footer.css';
 
 function Footer({ itemsLeft, filter, onFilterChange, onClearCompleted }) {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-//import "./NewTaskForm.css"
+import './NewTaskForm.css';
 
 export default class NewTaskForm extends React.Component {
   state = {
@@ -32,7 +32,6 @@ export default class NewTaskForm extends React.Component {
         <input
           className="new-todo"
           placeholder="What needs to be done?"
-          autoFocus
           onChange={this.onLabelChange}
           value={this.state.label}
         ></input>
