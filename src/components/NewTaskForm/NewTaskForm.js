@@ -49,7 +49,7 @@ export default class NewTaskForm extends React.Component {
           placeholder="Task"
           onChange={this.onLabelChange}
           value={this.state.label}
-        ></input>
+        />
         <input 
           name="todoTimerMin"
           type='text'
