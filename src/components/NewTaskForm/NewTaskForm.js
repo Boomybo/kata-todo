@@ -28,14 +28,11 @@ export default class NewTaskForm extends React.Component {
     e.preventDefault()
     console.log("something get wrong")
     if (this.state.label) {
-      e.preventDefault();
       this.props.onItemAdded(this.state.label);
       this.setState({
         label: '',
       });
-    } else {
-      e.preventDefault()
-    } 
+    }
   };
 
   render() {
