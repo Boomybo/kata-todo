@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -15,7 +18,7 @@ class App extends React.Component {
     filter: 'all',
   };
 
-  createTodoItem(label) {
+  createTodoItem(label, min, sec) {
     return {
       label,
       done: false,
@@ -138,7 +141,7 @@ class App extends React.Component {
 
     return (
       <section className="todoapp">
-        <header>
+        <header className='header'>
           <h1>todos</h1>
           <NewTaskForm onItemAdded={this.addItem} />
         </header>

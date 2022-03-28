@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 import React from 'react';
 import './Task.css';
 import PropTypes from 'prop-types';
@@ -60,8 +63,13 @@ export default class Task extends React.Component {
             readOnly
           />
           <label htmlFor={this.props.id}>
-            <span className="description">{label}</span>
-            <span className="created">created {timeStr} ago</span>
+            <span className='title'>{label}</span>
+            <span className="description">
+                  <button className="icon icon-play"></button>
+                  <button className="icon icon-pause"></button>
+                  12:25
+            </span>
+            <span className="description">created {timeStr} ago</span>
           </label>
           <button className="icon icon-edit" onClick={onToggleEdit} disabled={disabled}></button>
           <button className="icon icon-destroy" onClick={onDeleted}></button>
