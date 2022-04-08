@@ -1,68 +1,65 @@
-/* eslint-disable */
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './NewTaskForm.css';
+//import './NewTaskForm.css';
 
 export default class NewTaskForm extends React.Component {
   state = {
     label: '',
     todoTimerMin: '',
-    todoTimerSec: ''
+    todoTimerSec: '',
   };
 
-  constructor(props){
-    super(props)
-  }
-
   onLabelChange = (e) => {
-    const name = e.target.name
+    const name = e.target.name;
     this.setState({
       [name]: e.target.value,
     });
   };
 
   onSubmit = (e) => {
-    e.preventDefault()
-    console.log("something get wrong")
-    if (this.state.label) {
-      this.props.onItemAdded(this.state.label);
+    e.preventDefault();
+
+    const { label, todoTimerMin, todoTimerSec } = this.state;
+
+    if (label) {
+      this.props.onItemAdded(label, todoTimerMin, todoTimerSec);
       this.setState({
         label: '',
+        todoTimerMin: '',
+        todoTimerSec: '',
       });
     }
   };
 
   render() {
-    
     return (
-      <form onSubmit={(e) => onSubmit(e)} className='new-todo-form'>
+      <form onSubmit={this.onSubmit} className="new-todo-form">
         <input
           name="label"
-          type='text'
+          type="text"
           className="new-todo"
           placeholder="Task"
           onChange={this.onLabelChange}
           value={this.state.label}
         />
-        <input 
+        <input
           name="todoTimerMin"
-          type='text'
-          className="new-todo-form__timer" 
-          placeholder="Min" 
+          type="text"
+          className="new-todo-form__timer"
+          placeholder="Min"
           onChange={this.onLabelChange}
           value={this.state.todoTimerMin}
-          autoFocus/>
-        <input 
+        />
+        <input
           name="todoTimerSec"
-          type='text'
-          className="new-todo-form__timer" 
-          placeholder="Sec" 
+          type="text"
+          className="new-todo-form__timer"
+          placeholder="Sec"
           onChange={this.onLabelChange}
           value={this.state.todoTimerSec}
-          autoFocus/>
+        />
+        <button type="submit"></button>
       </form>
     );
   }
