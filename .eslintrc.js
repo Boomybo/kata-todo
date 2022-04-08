@@ -25,7 +25,7 @@ module.exports = {
       },
       "plugins": ["react", "prettier", "import"],
       "rules": {
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "prettier/prettier": "error",
         "linebreak-style": [0, "unix"],
         "quotes": ["error", "single"],

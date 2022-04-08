@@ -1,6 +1,3 @@
-/* eslint-disable */
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -14,13 +11,19 @@ class App extends React.Component {
   maxId = 3;
 
   state = {
-    items: [this.createTodoItem('One Task'), this.createTodoItem('Two Task'), this.createTodoItem('Three Task')],
+    items: [
+      this.createTodoItem('One Task', 1, 1),
+      this.createTodoItem('Two Task', 1, 2),
+      this.createTodoItem('Three Task', 0, 3),
+    ],
     filter: 'all',
   };
 
   createTodoItem(label, min, sec) {
     return {
       label,
+      min,
+      sec,
       done: false,
       editing: false,
       id: this.maxId++,
@@ -39,8 +42,11 @@ class App extends React.Component {
     });
   };
 
-  addItem = (text) => {
-    const newItem = this.createTodoItem(text);
+  addItem = (text, min, sec) => {
+    if (isNaN(min) || isNaN(sec)) {
+      throw new Error(alert('you can add only number'));
+    }
+    const newItem = this.createTodoItem(text, min, sec);
 
     this.setState(({ items }) => {
       const newArr = [...items, newItem];
@@ -93,12 +99,13 @@ class App extends React.Component {
   };
 
   filterItems(items, filter) {
-    if (filter === 'all') {
-      return items;
-    } else if (filter === 'active') {
-      return items.filter((item) => !item.done);
-    } else if (filter === 'completed') {
-      return items.filter((item) => item.done);
+    switch (filter) {
+      case 'all':
+        return items;
+      case 'active':
+        return items.filter((item) => !item.done);
+      case 'completed':
+        return items.filter((item) => item.done);
     }
   }
 
@@ -141,13 +148,13 @@ class App extends React.Component {
 
     return (
       <section className="todoapp">
-        <header className='header'>
+        <header className="header">
           <h1>todos</h1>
           <NewTaskForm onItemAdded={this.addItem} />
         </header>
         <section className="main">
           <TaskList
-            data={visibleItems}
+            tasks={visibleItems}
             onDeleted={this.deleteItem}
             onToggleDone={this.onToggleDone}
             onToggleEdit={this.onToggleEdit}
