@@ -76,7 +76,7 @@ export default class Task extends React.Component {
     let disabled,
       checked = false;
 
-    const inp = editing ? <EditInput editTask={editTask} id={id} label={label} /> : null;
+    const editInput = editing ? <EditInput editTask={editTask} id={id} label={label} /> : null;
 
     if (done) {
       classNames += ' completed';
@@ -104,7 +104,7 @@ export default class Task extends React.Component {
           <button className="icon icon-edit" onClick={onToggleEdit} disabled={disabled}></button>
           <button className="icon icon-destroy" onClick={onDeleted}></button>
         </div>
-        {inp}
+        {editInput}
       </li>
     );
   }
