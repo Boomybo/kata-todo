@@ -1,35 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default class EditInput extends React.Component {
-  state = {
-    label: this.props.label,
+const EditInput = ({ label, editTask, id }) => {
+  const [editLabel, setEditLabel] = useState(label);
+
+  const onLabelChange = (e) => {
+    setEditLabel(e.target.value);
   };
 
-  onLabelChange = (e) => {
-    this.setState({
-      label: e.target.value,
-    });
-  };
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    this.props.editTask(this.props.id, this.state.label);
+    editTask(id, editLabel);
   };
 
-  render() {
-    console.log(this.props);
-    const { label } = this.state;
-    return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          type="text"
-          className="edit"
-          value={label}
-          onChange={this.onLabelChange}
-          onBlur={this.onSubmit}
-          autoFocus
-        />
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={onSubmit}>
+      <input type="text" className="edit" value={editLabel} onChange={onLabelChange} onBlur={onSubmit} autoFocus />
+    </form>
+  );
+};
+
+export default EditInput;

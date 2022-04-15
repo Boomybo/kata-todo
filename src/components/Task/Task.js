@@ -1,114 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import EditInput from '../EditInput/EditInput';
-//import './Task.css';
+import './Task.css';
 
-export default class Task extends React.Component {
-  state = {
-    label: this.props.label,
-    btnPlay: false,
-    btnPause: false,
-    timer: true,
-    min: Number(this.props.min),
-    sec: Number(this.props.sec),
+const Task = ({ label, editing, min, sec, onDeleted, onToggleDone, onToggleEdit, done, timeStr, id, editTask }) => {
+  const [btnPlay, setBtnPlay] = useState(false),
+    [taskTimer, setTaskTimer] = useState(true),
+    [taskMin, setTaskMin] = useState(Number(min)),
+    [taskSec, setTaskSec] = useState(Number(sec));
+
+  const onBtnPlay = () => {
+    setBtnPlay(true);
+    setTaskTimer(true);
   };
 
-  onBtnPlay = () => {
-    return this.setState({
-      btnPlay: true,
-      btnPause: false,
-      timer: true,
-    });
+  const onBtnPause = () => {
+    setBtnPlay(false);
   };
 
-  onBtnPause = () => {
-    return this.setState({
-      btnPlay: false,
-      btnPause: true,
-    });
-  };
-
-  clock = () => {
-    const { min, sec, btnPlay, timer } = this.state;
-    const { editing } = this.props;
-
+  const clock = () => {
     if (editing) {
-      this.onBtnPause();
+      onBtnPause();
     }
 
     if (btnPlay) {
-      if (min === 0 && sec === 0) {
-        return this.setState({
-          timer: false,
-        });
+      if (taskMin === 0 && taskSec === 0) {
+        return setTaskTimer(false);
       }
-      if (sec === 0 && min > 0) {
-        this.setState({
-          min: min - 1,
-          sec: 60,
-        });
+      if (taskSec === 0 && taskMin > 0) {
+        setTaskMin(taskMin - 1);
+        return setTaskSec(59);
       }
-      if (timer) {
-        this.setState({
-          sec: this.state.sec - 1,
-        });
+      if (taskTimer) {
+        setTaskSec(taskSec - 1);
       }
     }
   };
 
-  componentDidMount() {
-    this.timerID = setInterval(() => this.clock(), 1000);
+  useEffect(() => {
+    const interval = setInterval(() => clock(), 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  const timer = ` ${taskMin}:${taskSec}`;
+
+  let classNames = '';
+  let disabled,
+    checked = false;
+
+  const editInput = editing ? <EditInput editTask={editTask} id={id} label={label} /> : null;
+
+  if (done) {
+    classNames += ' completed';
+    disabled = true;
+    checked = true;
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timerID);
+  if (editing) {
+    classNames += 'editing';
   }
 
-  render() {
-    const { label, onDeleted, onToggleEdit, onToggleDone, editing, done, timeStr, id, editTask } = this.props;
+  return (
+    <li className={classNames}>
+      <div className="view">
+        <input className="toggle" type="checkbox" checked={checked} onClick={onToggleDone} id={id} readOnly />
+        <label htmlFor={id}>
+          <span className="title">{label}</span>
+          <span className="description">
+            <button className="icon icon-play" onClick={onBtnPlay} disabled={disabled}></button>
+            <button className="icon icon-pause" onClick={onBtnPause} disabled={disabled}></button>
+            {timer}
+          </span>
+          <span className="description">created {timeStr} ago</span>
+        </label>
+        <button className="icon icon-edit" onClick={onToggleEdit} disabled={disabled}></button>
+        <button className="icon icon-destroy" onClick={onDeleted}></button>
+      </div>
+      {editInput}
+    </li>
+  );
+};
 
-    const { min, sec } = this.state;
-
-    const timer = ` ${min}:${sec}`;
-
-    let classNames = '';
-    let disabled,
-      checked = false;
-
-    const editInput = editing ? <EditInput editTask={editTask} id={id} label={label} /> : null;
-
-    if (done) {
-      classNames += ' completed';
-      disabled = true;
-      checked = true;
-    }
-
-    if (editing) {
-      classNames += 'editing';
-    }
-
-    return (
-      <li className={classNames}>
-        <div className="view">
-          <input className="toggle" type="checkbox" checked={checked} onClick={onToggleDone} id={id} readOnly />
-          <label htmlFor={id}>
-            <span className="title">{label}</span>
-            <span className="description">
-              <button className="icon icon-play" onClick={this.onBtnPlay} disabled={disabled}></button>
-              <button className="icon icon-pause" onClick={this.onBtnPause} disabled={disabled}></button>
-              {timer}
-            </span>
-            <span className="description">created {timeStr} ago</span>
-          </label>
-          <button className="icon icon-edit" onClick={onToggleEdit} disabled={disabled}></button>
-          <button className="icon icon-destroy" onClick={onDeleted}></button>
-        </div>
-        {editInput}
-      </li>
-    );
-  }
-}
+export default Task;
 
 Task.defaultProps = {
   onToggleDone: () => {
