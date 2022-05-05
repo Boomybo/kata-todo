@@ -2,13 +2,14 @@ import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import Task from '../Task/Task';
-import './TaskList.css';
+import Task from '../Task';
 
-function TaskList({ data, onDeleted, onToggleDone, onToggleEdit, editTask }) {
-  const elements = data.map((val) => {
-    const { id } = val;
-    const { ...itemProps } = val;
+import './TaskList.scss';
+
+function TaskList({ tasks, onDeleted, onToggleDone, onToggleEdit, editTask }) {
+  const renderTasks = tasks.map((task) => {
+    const { id } = task;
+    const { ...itemProps } = task;
 
     return (
       <Task
@@ -22,7 +23,7 @@ function TaskList({ data, onDeleted, onToggleDone, onToggleEdit, editTask }) {
     );
   });
 
-  return <ul className="todo-list">{elements}</ul>;
+  return <ul className="todo-list">{renderTasks}</ul>;
 }
 
 TaskList.defaultProps = {

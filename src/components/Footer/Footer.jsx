@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TasksFilter from '../TasksFilter/TasksFilter';
+import TasksFilter from '../TasksFilter';
 
-import './Footer.css';
+import './Footer.scss';
 
 function Footer({ itemsLeft, filter, onFilterChange, onClearCompleted }) {
   return (
