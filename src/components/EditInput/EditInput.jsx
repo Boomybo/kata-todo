@@ -13,8 +13,17 @@ const EditInput = ({ label, editTask, id }) => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input type="text" className="edit" value={editLabel} onChange={onLabelChange} onBlur={onSubmit} autoFocus />
+    <form onSubmit={onSubmit} autoComplete="off">
+      <label htmlFor={id} className="hidden-label"></label>
+      <input
+        type="text"
+        id={id}
+        className="edit"
+        value={editLabel}
+        onChange={onLabelChange}
+        onBlur={onSubmit}
+        autoFocus
+      />
     </form>
   );
 };

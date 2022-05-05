@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import EditInput from '../EditInput/EditInput';
-import './Task.css';
+import EditInput from '../EditInput';
+
+import './Task.scss';
 
 const Task = ({ label, editing, min, sec, onDeleted, onToggleDone, onToggleEdit, done, timeStr, id, editTask }) => {
   const [btnPlay, setBtnPlay] = useState(false),
@@ -116,7 +117,7 @@ Task.propTypes = {
   onToggleEdit: PropTypes.func,
   editTask: PropTypes.func,
 
-  timeForm: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
+  //timeForm: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object, PropTypes.func]),
 
   done: PropTypes.bool,
   editing: PropTypes.bool,

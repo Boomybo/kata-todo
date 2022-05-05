@@ -1,11 +1,10 @@
-/* eslint-disable */
-
 import React from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import PropTypes from 'prop-types';
 
-import Task from '../Task/Task';
-import './TaskList.css';
+import Task from '../Task';
+
+import './TaskList.scss';
 
 function TaskList({ tasks, onDeleted, onToggleDone, onToggleEdit, editTask }) {
   const renderTasks = tasks.map((task) => {

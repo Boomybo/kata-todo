@@ -107,7 +107,7 @@
 }
 
 .todo-list li label .description {
-	font-size: 13px;
+	font-size: 15px;
 	color: gray;
 }
 
@@ -171,6 +171,10 @@
 
 .todo-list li .icon-play {
 	font-size: 15px;
+}
+
+.todo-list li .icon-pause {
+	margin-right: 11px;
 }
 
 .icon-pause:after {

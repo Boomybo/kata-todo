@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import '../App/App.css';
 import { formatDistanceToNow } from 'date-fns';
 
-import NewTaskForm from '../NewTaskForm/NewTaskForm';
-import TaskList from '../TaskList/TaskList';
-import Footer from '../Footer/Footer';
+import NewTaskForm from '../NewTaskForm';
+import TaskList from '../TaskList';
+import Footer from '../Footer';
+import '../App/App.scss';
 
+let maxId = 3;
 const App = () => {
-  let maxId = 3;
-
   const createTodoItem = (label, min, sec) => {
     return {
       label,
@@ -35,9 +34,7 @@ const App = () => {
     setItem((items) => {
       const newArr = items.filter((val) => val.id !== id);
 
-      return {
-        items: newArr,
-      };
+      return newArr;
     });
   };
 

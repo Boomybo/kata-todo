@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import './NewTaskForm.css';
+import './NewTaskForm.scss';
 
 const NewTaskForm = ({ onItemAdded }) => {
   const [label, setLabel] = useState(''),
@@ -31,9 +31,20 @@ const NewTaskForm = ({ onItemAdded }) => {
   };
 
   return (
-    <form onSubmit={onSubmit} className="new-todo-form">
-      <input name="label" type="text" className="new-todo" placeholder="Task" onChange={onLabelChange} value={label} />
+    <form onSubmit={onSubmit} className="new-todo-form" autoComplete="off">
+      <label htmlFor="label"></label>
       <input
+        name="label"
+        id="label"
+        type="text"
+        className="new-todo"
+        placeholder="Task"
+        onChange={onLabelChange}
+        value={label}
+      />
+      <label htmlFor="min"></label>
+      <input
+        id="min"
         name="todoTimerMin"
         type="text"
         className="new-todo-form__timer"
@@ -41,7 +52,9 @@ const NewTaskForm = ({ onItemAdded }) => {
         onChange={onLabelChange}
         value={todoTimerMin}
       />
+      <label htmlFor="sec"></label>
       <input
+        if="sec"
         name="todoTimerSec"
         type="text"
         className="new-todo-form__timer"
